@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Rental Service</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
 <body>
+  <header>
+    <h1>Welcome to Our Rental Service</h1>
   <section id="login-section">
     <h2>Login</h2>
-    <input type="text" id="username" placeholder="Username">
-    <input type="password" id="password" placeholder="Password">
+    <input type="text" id="username" placeholder="Username" />
+    <input type="password" id="password" placeholder="Password" />
     <button onclick="loginUser()">Login</button>
   </section>
 
@@ -24,25 +26,24 @@
 
   <section id="driver-select-section">
     <h2>Select Driver</h2>
-    <ul>
-      <li>Driver A - 5 yrs exp - Rating: ★★★★☆</li>
-      <li>Driver B - 3 yrs exp - Rating: ★★★☆☆</li>
-      <li>Driver C - 8 yrs exp - Rating: ★★★★★</li>
+    <ul id="driver-list">
+      <li onclick="selectDriver(this)">Driver A - 5 yrs exp - ★★★★☆</li>
+      <li onclick="selectDriver(this)">Driver B - 3 yrs exp - ★★★☆☆</li>
+      <li onclick="selectDriver(this)">Driver C - 8 yrs exp - ★★★★★</li>
     </ul>
     <button onclick="confirmDriverSelection()">Confirm Driver</button>
   </section>
 
   <section id="pickup-location-section">
-    <h2>Choose Pickup Location</h2>
+    <h2>Select Pickup Location</h2>
     <div id="map"></div>
     <button onclick="confirmPickup()">Confirm Location</button>
   </section>
 
   <section id="document-upload-section">
     <h2>Upload Documents</h2>
-    <label>Aadhar Card / License:</label>
-    <input type="file">
-
+    <label>Upload Aadhar / License:</label>
+    <input type="file" />
     <h3>Payment Method</h3>
     <select>
       <option value="">Select Method</option>
