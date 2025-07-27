@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Rental Service</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Car & Bike Rental</title>
+  <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
@@ -13,58 +13,69 @@
     <h1>Welcome to Our Rental Service</h1>
   <section id="login-section">
     <h2>Login</h2>
-    <input type="text" id="username" placeholder="Username" />
-    <input type="password" id="password" placeholder="Password" />
-    <button onclick="loginUser()">Login</button>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="nextSection('rentTypeSection')">Login</button>
   </section>
 
-  <section id="rental-choice-section">
-    <h2>Choose Rental Type</h2>
-    <button onclick="handleRentalType('self')">Self Drive</button>
-    <button onclick="handleRentalType('driver')">With Driver</button>
+  <!-- Rent or List Section -->
+  <section id="rentTypeSection">
+    <h2>Choose Your Option</h2>
+    <button onclick="nextSection('takeRentSection')">Take a Rent</button>
+    <button onclick="nextSection('listVehicleSection')">List My Vehicle</button>
   </section>
 
-  <section id="driver-select-section">
+  <!-- Take Rent Section -->
+  <section id="takeRentSection">
+    <h2>Rent Vehicle Type</h2>
+    <button onclick="nextSection('rentModeSection')">Car</button>
+    <button onclick="nextSection('rentModeSection')">Bike</button>
+  </section>
+
+  <!-- Rent Mode -->
+  <section id="rentModeSection">
+    <h2>Rental Mode</h2>
+    <button onclick="nextSection('driverSelection')">With Driver</button>
+    <button onclick="nextSection('pickupLocation')">Self Drive</button>
+  </section>
+
+  <!-- Driver Selection -->
+  <section id="driverSelection">
     <h2>Select Driver</h2>
-    <ul id="driver-list">
-      <li onclick="selectDriver(this)">Driver A - 5 yrs exp - ★★★★☆</li>
-      <li onclick="selectDriver(this)">Driver B - 3 yrs exp - ★★★☆☆</li>
-      <li onclick="selectDriver(this)">Driver C - 8 yrs exp - ★★★★★</li>
-    </ul>
-    <button onclick="confirmDriverSelection()">Confirm Driver</button>
+    <div class="driver-buttons">
+      <button class="driver-btn" onclick="selectDriver(this)">Driver A - 5 yrs exp - ★★★★☆</button>
+      <button class="driver-btn" onclick="selectDriver(this)">Driver B - 3 yrs exp - ★★★☆☆</button>
+      <button class="driver-btn" onclick="selectDriver(this)">Driver C - 8 yrs exp - ★★★★★</button>
+    </div>
+    <button onclick="nextSection('pickupLocation')">Confirm Driver</button>
   </section>
 
-  <section id="pickup-location-section">
+  <!-- Pickup Location -->
+  <section id="pickupLocation">
     <h2>Select Pickup Location</h2>
     <div id="map"></div>
-    <button onclick="confirmPickup()">Confirm Location</button>
+    <button onclick="nextSection('proofSection')">Confirm Pickup Point</button>
   </section>
 
-  <section id="document-upload-section">
-    <h2>Upload Documents</h2>
-    <label>Upload Aadhar / License:</label>
-    <input type="file" />
-    <h3>Payment Method</h3>
+  <!-- Upload Proof -->
+  <section id="proofSection">
+    <h2>Upload Proof & Payment</h2>
+    <input type="file" accept="image/*,.pdf" multiple>
     <select>
-      <option value="">Select Method</option>
-      <option value="card">Credit/Debit Card</option>
-      <option value="upi">UPI</option>
-      <option value="netbanking">Net Banking</option>
+      <option>Pay via UPI</option>
+      <option>Credit/Debit Card</option>
+      <option>Cash on Delivery</option>
     </select>
-    <button onclick="confirmDocumentUpload()">Proceed to Pay</button>
+    <button onclick="nextSection('finalSection')">Submit & Proceed</button>
   </section>
 
-  <section id="payment-section">
-    <h2>Make Payment</h2>
-    <p>Amount: ₹2000</p>
-    <button onclick="confirmPayment()">Pay Now</button>
+  <!-- Confirmation -->
+  <section id="finalSection">
+    <h2>Booking Confirmed!</h2>
+    <p>Thank you for using our service.</p>
   </section>
 
-  <section id="confirmation-section">
-    <h2>Booking Confirmed</h2>
-    <p>Thank you! Your ride is booked.</p>
-  </section>
-
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
