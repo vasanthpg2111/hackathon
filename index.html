@@ -1,3 +1,5 @@
+<!-- index.html -->
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -7,18 +9,12 @@
 </head>
 <body>
 
-<nav>
-  <button onclick="showSection('login-section')">Login</button>
-  <button onclick="showSection('rental-choice-section')">Rent a Vehicle</button>
-  <button onclick="showSection('owner-form-section')">List Your Vehicle</button>
-</nav>
-
 <!-- LOGIN SECTION -->
 <section id="login-section" class="visible">
   <h2>Login / Signup</h2>
-  <input type="text" placeholder="Username" />
-  <input type="password" placeholder="Password" />
-  <button>Login</button>
+  <input type="text" id="username" placeholder="Username" />
+  <input type="password" id="password" placeholder="Password" />
+  <button onclick="loginUser()">Login</button>
 </section>
 
 <!-- RENTAL CHOICE -->
@@ -45,11 +41,29 @@
 <section id="driver-select-section">
   <h2>Select a Driver</h2>
   <div class="card">
-    <p><strong>Name:</strong> John Doe</p>
-    <p><strong>Experience:</strong> 5 years</p>
+    <p><strong>Name:</strong> John Kumar</p>
+    <p><strong>Experience:</strong> 6 years</p>
+    <p><strong>Rating:</strong> ★★★★☆</p>
     <p><strong>Phone:</strong> +91 9876543210</p>
-    <button onclick="showSection('payment-section')">Select Driver</button>
+    <p><strong>License No:</strong> TN09 456321</p>
+    <button onclick="showSection('pickup-location-section')">Select Driver</button>
   </div>
+  <div class="card">
+    <p><strong>Name:</strong> Arjun Reddy</p>
+    <p><strong>Experience:</strong> 4 years</p>
+    <p><strong>Rating:</strong> ★★★★★</p>
+    <p><strong>Phone:</strong> +91 9833312345</p>
+    <p><strong>License No:</strong> TN07 998877</p>
+    <button onclick="showSection('pickup-location-section')">Select Driver</button>
+  </div>
+</section>
+
+<!-- PICKUP LOCATION SELECTION -->
+<section id="pickup-location-section">
+  <h2>Select Pickup Location</h2>
+  <input type="text" id="map-search" placeholder="Enter a location" />
+  <div id="map"></div>
+  <button onclick="showSection('payment-section')">Confirm Pickup Point</button>
 </section>
 
 <!-- PAYMENT SECTION -->
@@ -67,7 +81,7 @@
   <h2>Booking Confirmed!</h2>
   <p>Your booking ID is: <strong>RNT123456</strong></p>
   <h3>Pickup Location:</h3>
-  <iframe src="https://www.google.com/maps?q=Chennai+Central+Railway+Station&output=embed" width="100%" height="300"></iframe>
+  <iframe src="https://www.google.com/maps?q=Chennai+Central+Railway+Station&output=embed"></iframe>
 </section>
 
 <!-- OWNER FORM -->
@@ -92,6 +106,7 @@
   <button onclick="alert('Vehicle Submitted!')">Submit Vehicle</button>
 </section>
 
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap&libraries=places" async defer></script>
 <script src="script.js"></script>
 </body>
 </html>
