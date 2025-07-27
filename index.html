@@ -1,112 +1,69 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Car & Bike Rental</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rental Service</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
 <body>
+  <section id="login-section">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="loginUser()">Login</button>
+  </section>
 
-<!-- LOGIN SECTION -->
-<section id="login-section" class="visible">
-  <h2>Login / Signup</h2>
-  <input type="text" id="username" placeholder="Username" />
-  <input type="password" id="password" placeholder="Password" />
-  <button onclick="loginUser()">Login</button>
-</section>
+  <section id="rental-choice-section">
+    <h2>Choose Rental Type</h2>
+    <button onclick="handleRentalType('self')">Self Drive</button>
+    <button onclick="handleRentalType('driver')">With Driver</button>
+  </section>
 
-<!-- RENTAL CHOICE -->
-<section id="rental-choice-section">
-  <h2>Rent a Vehicle</h2>
-  <select onchange="showSection('rental-type-section')">
-    <option value="">Select Vehicle</option>
-    <option value="car">Car</option>
-    <option value="bike">Bike</option>
-  </select>
-</section>
+  <section id="driver-select-section">
+    <h2>Select Driver</h2>
+    <ul>
+      <li>Driver A - 5 yrs exp - Rating: ★★★★☆</li>
+      <li>Driver B - 3 yrs exp - Rating: ★★★☆☆</li>
+      <li>Driver C - 8 yrs exp - Rating: ★★★★★</li>
+    </ul>
+    <button onclick="confirmDriverSelection()">Confirm Driver</button>
+  </section>
 
-<!-- RENTAL TYPE -->
-<section id="rental-type-section">
-  <h2>Rental Type</h2>
-  <select onchange="handleRentalType(this.value)">
-    <option value="">Select Rental Type</option>
-    <option value="self">Self Drive</option>
-    <option value="driver">With Driver</option>
-  </select>
-</section>
+  <section id="pickup-location-section">
+    <h2>Choose Pickup Location</h2>
+    <div id="map"></div>
+    <button onclick="confirmPickup()">Confirm Location</button>
+  </section>
 
-<!-- DRIVER SELECTION -->
-<section id="driver-select-section">
-  <h2>Select a Driver</h2>
-  <div class="card">
-    <p><strong>Name:</strong> John Kumar</p>
-    <p><strong>Experience:</strong> 6 years</p>
-    <p><strong>Rating:</strong> ★★★★☆</p>
-    <p><strong>Phone:</strong> +91 9876543210</p>
-    <p><strong>License No:</strong> TN09 456321</p>
-    <button onclick="showSection('pickup-location-section')">Select Driver</button>
-  </div>
-  <div class="card">
-    <p><strong>Name:</strong> Arjun Reddy</p>
-    <p><strong>Experience:</strong> 4 years</p>
-    <p><strong>Rating:</strong> ★★★★★</p>
-    <p><strong>Phone:</strong> +91 9833312345</p>
-    <p><strong>License No:</strong> TN07 998877</p>
-    <button onclick="showSection('pickup-location-section')">Select Driver</button>
-  </div>
-</section>
+  <section id="document-upload-section">
+    <h2>Upload Documents</h2>
+    <label>Aadhar Card / License:</label>
+    <input type="file">
 
-<!-- PICKUP LOCATION SELECTION -->
-<section id="pickup-location-section">
-  <h2>Select Pickup Location</h2>
-  <input type="text" id="map-search" placeholder="Enter a location" />
-  <div id="map"></div>
-  <button onclick="showSection('payment-section')">Confirm Pickup Point</button>
-</section>
+    <h3>Payment Method</h3>
+    <select>
+      <option value="">Select Method</option>
+      <option value="card">Credit/Debit Card</option>
+      <option value="upi">UPI</option>
+      <option value="netbanking">Net Banking</option>
+    </select>
+    <button onclick="confirmDocumentUpload()">Proceed to Pay</button>
+  </section>
 
-<!-- PAYMENT SECTION -->
-<section id="payment-section">
-  <h2>Upload Documents</h2>
-  <label>Aadhar Card</label>
-  <input type="file" />
-  <label>Driving License</label>
-  <input type="file" />
-  <button onclick="showSection('confirmation-section')">Proceed to Confirmation</button>
-</section>
+  <section id="payment-section">
+    <h2>Make Payment</h2>
+    <p>Amount: ₹2000</p>
+    <button onclick="confirmPayment()">Pay Now</button>
+  </section>
 
-<!-- BOOKING CONFIRMATION -->
-<section id="confirmation-section">
-  <h2>Booking Confirmed!</h2>
-  <p>Your booking ID is: <strong>RNT123456</strong></p>
-  <h3>Pickup Location:</h3>
-  <iframe src="https://www.google.com/maps?q=Chennai+Central+Railway+Station&output=embed"></iframe>
-</section>
+  <section id="confirmation-section">
+    <h2>Booking Confirmed</h2>
+    <p>Thank you! Your ride is booked.</p>
+  </section>
 
-<!-- OWNER FORM -->
-<section id="owner-form-section">
-  <h2>List Your Vehicle</h2>
-  <select>
-    <option value="car">Car</option>
-    <option value="bike">Bike</option>
-  </select>
-  <input type="text" placeholder="Brand & Model" />
-  <textarea placeholder="Vehicle Description"></textarea>
-  <label>Legal Status</label>
-  <select>
-    <option>No fines or cases</option>
-    <option>Minor fine (₹500-₹1000)</option>
-    <option>Under review (contact admin)</option>
-  </select>
-  <label>Upload Vehicle Photos</label>
-  <input type="file" multiple />
-  <label>Enter Google Maps Location Link</label>
-  <input type="text" placeholder="https://maps.google.com/..." />
-  <button onclick="alert('Vehicle Submitted!')">Submit Vehicle</button>
-</section>
-
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap&libraries=places" async defer></script>
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

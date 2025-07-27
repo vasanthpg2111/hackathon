@@ -1,9 +1,18 @@
+// script.js
+
+// Show and hide sections
 function showSection(id) {
   const sections = document.querySelectorAll("section");
-  sections.forEach(sec => {
-    sec.classList.remove("visible");
-  });
-  document.getElementById(id).classList.add("visible");
+  sections.forEach(sec => sec.style.display = "none");
+
+  const target = document.getElementById(id);
+  if (target) {
+    target.style.display = "block";
+    target.scrollIntoView({ behavior: "smooth" });
+    if (id === "pickup-location-section") {
+      setTimeout(initLeafletMap, 200);
+    }
+  }
 }
 
 function loginUser() {
@@ -12,40 +21,58 @@ function loginUser() {
   if (username && password) {
     showSection("rental-choice-section");
   } else {
-    alert("Please enter valid login details.");
+    alert("Please enter both username and password.");
   }
 }
 
-function handleRentalType(value) {
-  if (value === "driver") {
-    showSection("driver-select-section");
-  } else {
+function handleRentalType(type) {
+  if (type === "self") {
     showSection("pickup-location-section");
+  } else if (type === "driver") {
+    showSection("driver-select-section");
   }
 }
 
-function initMap() {
-  const defaultLoc = { lat: 13.0827, lng: 80.2707 };
-  const map = new google.maps.Map(document.getElementById("map"), {
-    center: defaultLoc,
-    zoom: 13,
-  });
-
-  const marker = new google.maps.Marker({
-    map,
-    position: defaultLoc,
-    draggable: true
-  });
-
-  const input = document.getElementById("map-search");
-  const autocomplete = new google.maps.places.Autocomplete(input);
-  autocomplete.bindTo("bounds", map);
-
-  autocomplete.addListener("place_changed", function () {
-    const place = autocomplete.getPlace();
-    if (!place.geometry) return;
-    map.setCenter(place.geometry.location);
-    map.setZoom(15);
-    marker.setPosition(place.geometry.location);
-  });
+function confirmDriverSelection() {
+  showSection("pickup-location-section");
 }
+
+function confirmPickup() {
+  showSection("document-upload-section");
+}
+
+function confirmDocumentUpload() {
+  showSection("payment-section");
+}
+
+function confirmPayment() {
+  showSection("confirmation-section");
+}
+
+// Leaflet map integration
+let mapInitialized = false;
+function initLeafletMap() {
+  if (mapInitialized) return;
+
+  const map = L.map("map").setView([13.0827, 80.2707], 13); // Chennai coordinates
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "&copy; OpenStreetMap contributors"
+  }).addTo(map);
+
+  let marker;
+  map.on("click", function (e) {
+    if (marker) map.removeLayer(marker);
+    marker = L.marker(e.latlng).addTo(map);
+    alert(`Pickup location set to: ${e.latlng.lat}, ${e.latlng.lng}`);
+  });
+
+  mapInitialized = true;
+}
+
+// On load, only show login section
+window.onload = () => {
+  const allSections = document.querySelectorAll("section");
+  allSections.forEach(sec => sec.style.display = "none");
+  document.getElementById("login-section").style.display = "block";
+};
