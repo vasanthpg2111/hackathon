@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -6,12 +6,104 @@
   <title>Car & Bike Rental</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #121212;
+      color: #ffffff;
+      scroll-behavior: smooth;
+    }
+
+    section {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      padding: 20px;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      color: #00d4ff;
+      margin-bottom: 20px;
+    }
+
+    input, select, button {
+      padding: 12px;
+      margin: 10px;
+      width: 80%;
+      max-width: 400px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+      background-color: #333;
+      color: white;
+    }
+
+    button {
+      background-color: #00d4ff;
+      color: black;
+      font-weight: bold;
+      transition: background 0.3s, transform 0.3s;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #00aacc;
+      transform: scale(1.05);
+      border-radius: 16px;
+    }
+
+    #map {
+      height: 300px;
+      width: 90%;
+      max-width: 500px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+    }
+
+    .driver-buttons {
+      display: flex;
+      flex-direction: column;
+      width: 80%;
+      max-width: 400px;
+    }
+
+    .driver-btn {
+      margin: 10px 0;
+      padding: 12px;
+      border-radius: 10px;
+      background-color: #333;
+      color: white;
+      border: none;
+      font-size: 1rem;
+      transition: background 0.3s, border-radius 0.3s;
+      cursor: pointer;
+    }
+
+    .driver-btn:hover {
+      background-color: #00aacc;
+      border-radius: 16px;
+    }
+
+    .driver-btn.selected {
+      background-color: #00d4ff;
+      color: black;
+      border-radius: 16px;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>Welcome to Our Rental Service</h1>
-  <section id="login-section">
+
+  <!-- Login Section -->
+  <section id="loginSection">
     <h2>Login</h2>
     <input type="text" id="username" placeholder="Username">
     <input type="password" id="password" placeholder="Password">
